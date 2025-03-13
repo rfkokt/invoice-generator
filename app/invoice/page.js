@@ -10,6 +10,7 @@ export default function InvoicePage() {
   const [bankInfo, setBankInfo] = useState(
     "Bank DKI Novia Trie Rizkiyanti : 60123192832"
   );
+  const [loading, setLoading] = useState(false);
 
   const addItem = () =>
     setItems([...items, { name: "", quantity: 1, price: "" }]);
@@ -21,6 +22,7 @@ export default function InvoicePage() {
   };
 
   const generatePDF = async () => {
+    setLoading(true);
     const total = items.reduce(
       (sum, item) => sum + Number(item.price) * Number(item.quantity),
       0
@@ -28,7 +30,14 @@ export default function InvoicePage() {
     const response = await fetch("/api/invoice", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ clientName, date, items, total, bankInfo }),
+      body: JSON.stringify({
+        clientName,
+        date,
+        items,
+        total,
+        bankInfo,
+        invoiceNumber,
+      }),
     });
 
     if (response.ok) {
@@ -36,11 +45,12 @@ export default function InvoicePage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "invoice.pdf";
+      a.download = `invoice-${clientName}.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
     }
+    setLoading(false);
   };
 
   return (
@@ -117,10 +127,11 @@ export default function InvoicePage() {
         />
       </div>
       <button
-        className="mt-4 p-3 w-full bg-green-500 text-white rounded text-lg hover:bg-green-600"
+        className="mt-4 p-3 w-full bg-green-500 text-white rounded text-lg hover:bg-green-600 flex items-center justify-center"
         onClick={generatePDF}
+        disabled={loading}
       >
-        Download PDF
+        {loading ? "Processing..." : "Download PDF"}
       </button>
     </div>
   );

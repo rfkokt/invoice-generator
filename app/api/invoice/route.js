@@ -19,7 +19,9 @@ export async function POST(req) {
     const data = await req.json();
     const clientName = data.clientName || "Pelanggan";
     const invoiceNumber = data.invoiceNumber || "0001";
-    const date = data.date || new Date().toISOString().split("T")[0];
+    const date = data.date
+      ? new Date(data.date).toLocaleDateString("id-ID")
+      : new Date().toLocaleDateString("id-ID");
     const items = data.items || [];
     const total = data.total || 0;
     const bankInfo = data.bankInfo || "Tidak ada informasi bank";
