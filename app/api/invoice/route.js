@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
 import fs from "fs";
 import path from "path";
 
@@ -24,7 +25,11 @@ export async function POST(req) {
     const bankInfo = data.bankInfo || "Tidak ada informasi bank";
     console.log("debug items", items);
 
-    const browser = await puppeteer.launch({ headless: "new" });
+    const browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    });
     const page = await browser.newPage();
 
     const htmlContent = `
