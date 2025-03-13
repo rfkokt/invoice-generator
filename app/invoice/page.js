@@ -44,7 +44,7 @@ export default function InvoicePage() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto bg-white shadow-md rounded-md text-gray-900">
+    <div className="p-4 max-w-3xl mx-auto bg-white shadow-md rounded-md text-gray-900">
       <h1 className="text-2xl font-bold text-center mb-4">Generate Invoice</h1>
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">
@@ -77,31 +77,31 @@ export default function InvoicePage() {
       </div>
       <h3 className="text-lg font-semibold mb-2">Items</h3>
       {items.map((item, index) => (
-        <div key={index} className="mb-2 flex gap-2">
+        <div key={index} className="mb-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
           <input
             placeholder="Item Name"
-            className="flex-1 p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none"
+            className="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none"
             value={item.name}
             onChange={(e) => handleChange(index, "name", e.target.value)}
           />
           <input
             type="number"
             placeholder="Qty"
-            className="w-20 p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none"
+            className="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none"
             value={item.quantity}
             onChange={(e) => handleChange(index, "quantity", e.target.value)}
           />
           <input
             type="number"
             placeholder="Price"
-            className="w-32 p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none"
+            className="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:outline-none"
             value={item.price}
             onChange={(e) => handleChange(index, "price", e.target.value)}
           />
         </div>
       ))}
       <button
-        className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="mt-2 p-2 w-full sm:w-auto bg-blue-500 text-white rounded hover:bg-blue-600"
         onClick={addItem}
       >
         + Add Item
