@@ -96,7 +96,7 @@ export async function POST(req) {
             <div class="total-box">
               <p>Total: <strong>Rp${total.toLocaleString("id-ID")}</strong></p>
             </div>
-            <p class="footer">Terima kasih sudah membeli kacangnya. Barakallah 😊</p>
+            <p class="footer">Terima kasih sudah membeli kacang / snacknya. Barakallah❤️✨</p>
           </div>
         </body>
       </html>
